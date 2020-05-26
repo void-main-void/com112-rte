@@ -1,11 +1,22 @@
 #include <stdio.h>
 
+int power(int x, int y);
 int menu();
 int relatorio();
 
 int main(int argc, char const *argv[]) {
 	menu();
 	return 0;
+}
+
+int power(int x, int y) {
+	int power = 1;
+	if (x == 0) return 0;
+	if (y == 0) return 1;
+	while (y-- > 0) {
+		power *= x;
+	}
+	return power;
 }
 
 int menu() {
