@@ -1,11 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "com112_file.h"
 
 int power(int x, int y);
 int menu();
 int relatorio();
+int *char_to_int(char *buffer);
 
 int main(int argc, char const *argv[]) {
-	menu();
+	char* buffer = 0;
+	buffer = read_file("com112_entrada.txt");
+	int *int_array = char_to_int(buffer);
+	free(int_array = 0);
+	free(buffer = 0);
 	return 0;
 }
 
@@ -21,7 +30,7 @@ int power(int x, int y) {
 
 int menu() {
 	int op = 0;
-	do {
+	do {	
 		printf(" 1. Bubble Sort\n");
 		printf(" 2. Selection Sort\n");
 		printf(" 3. Insertion Sort\n");
@@ -31,13 +40,13 @@ int menu() {
 
 		switch (op) {
 			case 1: {
-				printf("OP = %d!\n");
+				printf("OP = %d!\n", op);
 			} break;
 			case 2: {
-				printf("OP = %d!\n");
+				printf("OP = %d!\n", op);
 			} break;
 			case 3: {
-				printf("OP = %d!\n");
+				printf("OP = %d!\n", op);
 			} break;
 			case -1: {
 			} break;
@@ -46,4 +55,22 @@ int menu() {
 			} break;
 		}
 	} while (op != -1);
+}
+
+int *char_to_int(char *buffer) {
+	int *int_array = 0;
+	int size = 0;
+	int k = 0;
+	for (int i = 0; i < strlen(buffer); ++i) {
+		if (buffer[i] == '\n') {
+			for (int j = i - 1; j >= 0; --j) {
+				size += (int)(buffer[j] - '0') * power(10, i - j - 1);
+			}
+			int_array = calloc(size, sizeof(int));
+		}
+		if (int_array && buffer[i] != ' ' && buffer[i] != '\n') {
+			int_array[k++] = (int)(buffer[i] - '0');
+		}
+	}
+	return int_array;
 }
