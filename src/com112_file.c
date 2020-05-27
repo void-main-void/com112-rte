@@ -23,3 +23,13 @@ char *read_file(const char file_name[]) {
     fclose(pFile);
     return buffer;
 }
+
+void write_file(const char file_name[], char *buffer) {
+    FILE *pFile = fopen(file_name, "w");
+    if (pFile) {
+        for (int i = 0; i < strlen(buffer); ++i) {
+            putc(buffer[i], pFile);
+        }
+    }
+    fclose(pFile);
+}

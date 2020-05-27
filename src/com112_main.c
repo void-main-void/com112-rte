@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "com112_file.h"
 
@@ -10,11 +9,8 @@ int relatorio();
 int *char_to_int(char *buffer);
 
 int main(int argc, char const *argv[]) {
-	char* buffer = 0;
-	buffer = read_file("com112_entrada.txt");
-	int *int_array = char_to_int(buffer);
-	free(int_array = 0);
-	free(buffer = 0);
+	char buffer[] = { "Isso e um teste." };
+	write_file("com112_saida.txt", buffer);
 	return 0;
 }
 
