@@ -11,7 +11,7 @@ int *char_to_int(char *buffer);
 
 int main(int argc, char const *argv[]) {
 	int array[] = { 3, 9, 1, 4, 6, 6, 16 };
-	bubble_sort(array, 7);
+	selection_sort(array, 7);
 
 	return 0;
 }
