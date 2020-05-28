@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "com112_file.h"
+#include "com112_sort.h"
 
 int power(int x, int y);
 int menu();
@@ -9,8 +10,9 @@ int relatorio();
 int *char_to_int(char *buffer);
 
 int main(int argc, char const *argv[]) {
-	char buffer[] = { "Isso e um teste." };
-	write_file("com112_saida.txt", buffer);
+	int array[] = { 3, 9, 1, 4, 6, 6, 16 };
+	bubble_sort(array, 7);
+
 	return 0;
 }
 
