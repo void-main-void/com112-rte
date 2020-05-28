@@ -32,3 +32,17 @@ void selection_sort(int array[], int size) {
         swap(&array[i], &array[min_index]);
     }
 }
+
+void insertion_sort(int array[], int size) {
+    int key = 0;
+    int j = 0;
+    for (int i = 1; i < size; ++i) {
+        key = array[i];
+        j = i - 1;
+        while (j >= 0 && key < array[j]) {
+            array[j + 1] = array[j];
+            --j;
+        }
+        array[j + 1] = key;
+    }
+}

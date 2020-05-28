@@ -10,8 +10,8 @@ int relatorio();
 int *char_to_int(char *buffer);
 
 int main(int argc, char const *argv[]) {
-	int array[] = { 3, 9, 1, 4, 6, 6, 16 };
-	selection_sort(array, 7);
+	int array[] = { 3, 9, 1, 6, 4, 6, 16 };
+	insertion_sort(array, 7);
 
 	return 0;
 }
