@@ -2,9 +2,9 @@
 #define COM112_FILE_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *read_file(const char file_name[]);
-void write_file(const char file_name[], char *buffer);
+int write_file(FILE *fp, const char file_name[], char *buffer);
 
 #endif
