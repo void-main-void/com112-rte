@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "gcc.exe build active file",
+			"command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+			"args": [
+				"-g",
+				"d:\\dev\\com112-rte\\src\\com112_main.c",
+				"d:\\dev\\com112-rte\\src\\com112_file.c",
+				"d:\\dev\\com112-rte\\src\\com112_sort.c",
+				"-o",
+				"d:\\dev\\com112-rte\\debug\\${fileBasenameNoExtension}.exe"
+			],
+			"options": {
+				"cwd": "C:\\msys64\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}
