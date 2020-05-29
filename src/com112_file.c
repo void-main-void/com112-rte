@@ -1,14 +1,13 @@
 #include "com112_file.h"
 
-int write_file(FILE* fp, const char file_name[], char *buffer) {
+int write_io_file(FILE *fp, const char file_name[], int size, int *array) {
     fp = fopen(file_name, "w");
-    if (fp) {
-        for (int i = 0; i < strlen(buffer); ++i) {
-            putc(buffer[i], fp);
-        }
-        return 1;
+    if (!fp) { return 0; }
+    fprintf(fp, "%d\n", size);
+    for (int i = 0; i < size; ++i) {
+        fprintf(fp, "%d ", array[i]);
     }
-    else {
-        return 0;
-    }
+    fclose(fp);
+    fp = 0;
+    return 1;
 }

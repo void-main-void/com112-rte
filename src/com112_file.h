@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int write_file(FILE *fp, const char file_name[], char *buffer);
+int write_io_file(FILE *fp, const char file_name[], int size, int *array);
 
 #endif
