@@ -2,6 +2,10 @@
 #include "com112_sort.h"
 #include <time.h>
 
+#define MIN_ARRAY_SIZE 5000
+#define MAX_RAND_SIZE 10000
+// TOTAL SIZE = RAND % MAX_RAND_SIZE + MIN_ARRAY_SIZE
+
 int menu();
 int relatorio();
 int *create_array(int size);
@@ -9,7 +13,7 @@ int *copy_array(int *array, int size);
 int main(int argc, char const *argv[]) {
 	srand(time(0));
 	int size = 0;
-	size = (rand() % 10000) + 5000;
+	size = (rand() % MAX_RAND_SIZE) + MIN_ARRAY_SIZE;
 	int *array = 0;
 	array = create_array(size);
 	int op = -1;
