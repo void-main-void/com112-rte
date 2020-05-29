@@ -6,7 +6,6 @@ void swap(int *a, int *b) {
 }
 
 int *bubble_sort(int array[], int size) {
-    int swapped = 0;
     int counter[2] = { 0 }; // 0 = swaps  ||  1 = comparisons
     for (int i = 0; i < size - 1; ++i) {
         for (int j = i + 1; j < size; ++j) {
@@ -14,11 +13,7 @@ int *bubble_sort(int array[], int size) {
                 swap(&array[i], &array[j]);
                 ++counter[0];
                 ++counter[1];
-                swapped = 1;
             }
-        }
-        if (!swapped) {
-            break;
         }
     }
     return counter;
