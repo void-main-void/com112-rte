@@ -1,74 +1,86 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "com112_file.h"
 #include "com112_sort.h"
+#include <time.h>
 
-int power(int x, int y);
 int menu();
 int relatorio();
-int *char_to_int(char *buffer);
-
+int *create_array(int size);
+int *copy_array(int *array, int size);
 int main(int argc, char const *argv[]) {
-	int array[] = { 3, 9, 1, 6, 4, 6, 16 };
-	insertion_sort(array, 7);
-
-	return 0;
-}
-
-int power(int x, int y) {
-	int power = 1;
-	if (x == 0) return 0;
-	if (y == 0) return 1;
-	while (y-- > 0) {
-		power *= x;
-	}
-	return power;
-}
-
-int menu() {
-	int op = 0;
-	do {	
-		printf(" 1. Bubble Sort\n");
-		printf(" 2. Selection Sort\n");
-		printf(" 3. Insertion Sort\n");
-		printf(" 4. Relatorio\n");
-		printf("-1. Sair\n");
+	srand(time(0));
+	int size = 0;
+	size = (rand() % 10000) + 5000;
+	int *array = 0;
+	array = create_array(size);
+	int op = -1;
+	FILE *fp = 0;
+	do {
+		menu();
 		scanf("%d", &op);
-
 		switch (op) {
 			case 1: {
-				printf("OP = %d!\n", op);
+				int *bubble_array = copy_array(array, size);
+			    bubble_sort(bubble_array, size);
+				write_io_file(fp, "com112_entrada.txt", size, array);
+				write_io_file(fp, "com112_saida.txt", size, bubble_array);
+				free(bubble_array);
+				bubble_array = 0;
 			} break;
 			case 2: {
-				printf("OP = %d!\n", op);
+				int *selection_array = copy_array(array, size);
+				selection_sort(selection_array, size);
+				write_io_file(fp, "com112_entrada.txt", size, array);
+				write_io_file(fp, "com112_saida.txt", size, selection_array);
+				free(selection_array);
+				selection_array = 0;
 			} break;
 			case 3: {
-				printf("OP = %d!\n", op);
-			} break;
-			case -1: {
-			} break;
-			default: {
-				op = -1;
+				int *insertion_array = copy_array(array, size);
+				selection_sort(insertion_array, size);
+				write_io_file(fp, "com112_entrada.txt", size, array);
+				write_io_file(fp, "com112_saida.txt", size, insertion_array);
+				free(insertion_array);
+				insertion_array = 0;
 			} break;
 		}
 	} while (op != -1);
+	free(array);
+	if (fp) fclose(fp);
+	fp = 0;
+	array = 0;
+	return 0;
 }
 
-int *char_to_int(char *buffer) {
-	int *int_array = 0;
-	int size = 0;
-	int k = 0;
-	for (int i = 0; i < strlen(buffer); ++i) {
-		if (buffer[i] == '\n') {
-			for (int j = i - 1; j >= 0; --j) {
-				size += (int)(buffer[j] - '0') * power(10, i - j - 1);
-			}
-			int_array = calloc(size, sizeof(int));
-		}
-		if (int_array && buffer[i] != ' ' && buffer[i] != '\n') {
-			int_array[k++] = (int)(buffer[i] - '0');
-		}
-	}
-	return int_array;
+int menu() {
+	printf(" 1. Bubble sort\n");
+	printf(" 2. Selection sort\n");
+	printf(" 3. Insertion sort\n");
+	printf(" 4. Relatorio\n");
+	printf("-1. Sair\n");
+	return 1;
 }
+
+int relatorio() {
+	return 1;
+}
+
+int *create_array(int size) {
+	int *array = calloc(size, sizeof(int));
+	if (array) {
+		for (int i = 0; i < size; ++i) {
+			array[i] = rand() % size;
+		}
+		return array;
+	}
+	return 0;
+}
+
+int *copy_array(int *array, int size) {
+	int *copy = 0;
+	copy = calloc(size, sizeof(int));
+	for (int i = 0; i < size; ++i) {
+		copy[i] = array[i];
+	}
+	return copy;
+}
+
