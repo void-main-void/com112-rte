@@ -78,29 +78,29 @@ sortinfo merge(int array[], int size, int begin, int middle, int end) {
     int v1 = begin;
     int v2 = middle + 1;
     int aux = begin;
-    int *AA = 0;
-    AA = calloc(size - 1, sizeof(int));
+    int *aux_array = 0;
+    aux_array = calloc(size - 1, sizeof(int));
     do {
         ++info.comparisons;
         if (array[v1] <= array[v2]) {
-            AA[aux++] = array[v1++];
+            aux_array[aux++] = array[v1++];
         } else {
-            AA[aux++] = array[v2++];
+            aux_array[aux++] = array[v2++];
         }
     } while (v1 <= middle && v2 <= end);
     while (v1 <= middle) {
         ++info.swaps;
-        AA[aux++] = array[v1++];
+        aux_array[aux++] = array[v1++];
     }
     while (v2 <= end) {
         ++info.swaps;
-        AA[aux++] = array[v2++];
+        aux_array[aux++] = array[v2++];
     }
     for (int i = begin; i <= end; ++i) {
         ++info.swaps;
-        array[i] = AA[i];
+        array[i] = aux_array[i];
     }
     return info;
-    free(AA);
-    AA = 0;
+    free(aux_array);
+    aux_array = 0;
 }
