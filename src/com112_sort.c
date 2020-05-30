@@ -104,3 +104,31 @@ sortinfo merge(int array[], int size, int begin, int middle, int end) {
     free(aux_array);
     aux_array = 0;
 }
+
+sortinfo quick_sort(int array[], int begin, int end) {
+    sortinfo info;
+    if (begin < end) {
+        int pivot = partition(array, begin, end, &info);
+        quick_sort(array, begin, pivot - 1);
+        quick_sort(array, pivot + 1, end);
+    }
+    return info;
+}
+
+int partition(int array[], int begin, int end, sortinfo* info) {
+    info->comparisons = 0;
+    info->swaps = 0;
+    int pivot = array[begin];
+    int i = begin;
+    for (int j = begin; j <= end; ++j) {
+        if (array[j] < pivot) {
+            ++info->comparisons;
+            ++info->swaps;
+            ++i;
+            swap(&array[j], &array[i]);
+        }
+    }
+    ++info->swaps;
+    swap(&array[begin], &array[i]);
+    return i;
+}

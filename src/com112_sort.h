@@ -14,5 +14,7 @@ sortinfo selection_sort(int array[], int size);
 sortinfo insertion_sort(int array[], int size);
 sortinfo merge_sort(int array[], int size, int begin, int end);
 sortinfo merge(int array[], int size, int begin, int middle, int end);
+sortinfo quick_sort(int array[], int begin, int end);
+int partition(int array[], int begin, int end, sortinfo* info);
 
 #endif

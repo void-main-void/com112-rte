@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]) {
 			} break;
 			case 5: {
 				int *quick_array = copy_array(array, size);
-				// TODO(void-main-void): implement quick sort.
+				quick_sort(quick_array, 0, size - 1);
 				write_io_file(fp, "com112_entrada.txt", size, array);
 				write_io_file(fp, "com112_saida.txt", size, quick_array);
 				free(quick_array);
@@ -143,7 +143,7 @@ void write_report(FILE *fp, int array[], int size) {
 	end = clock();
 	merge_time = (double) (end - begin) / CLOCKS_PER_SEC;
 	begin = clock();
-	sortinfo quick_info; quick_info.comparisons = 0; quick_info.swaps = 0; // TODO(void-main-void): quick sort.
+	sortinfo quick_info = quick_sort(quick_array, 0, size - 1);
 	end = clock();
 	quick_time = (double) (end - begin) / CLOCKS_PER_SEC;
 	printf("Número de elementos ordenados: %d\n", size);
