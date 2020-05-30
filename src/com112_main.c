@@ -48,8 +48,20 @@ int main(int argc, char const *argv[]) {
 				insertion_array = 0;
 			} break;
 			case 4: {
+				int *merge_array = copy_array(array, size);
+				merge_sort(merge_array, size, 0, size - 1);
+				write_io_file(fp, "com112_entrada.txt", size, array);
+				write_io_file(fp, "com112_saida.txt", size, merge_array);
+				free(merge_array);
+				merge_array = 0;
+			} break;
+			case 6: {
 				write_report(fp, array, size);
-			}
+			} break;
+			case 7:
+			default: {
+				op = -1;
+			} break;
 		}
 	} while (op != -1);
 	free(array);
@@ -60,11 +72,12 @@ int main(int argc, char const *argv[]) {
 }
 
 int menu() {
-	printf(" 1. Bubble sort\n");
-	printf(" 2. Selection sort\n");
-	printf(" 3. Insertion sort\n");
-	printf(" 4. Relatorio\n");
-	printf("-1. Sair\n");
+	printf("1. Bubble sort\n");
+	printf("2. Selection sort\n");
+	printf("3. Insertion sort\n");
+	printf("4. Merge sort\n");
+	printf("6. Relatorio\n");
+	printf("7. Sair\n");
 	return 1;
 }
 
@@ -94,12 +107,13 @@ int *copy_array(int *array, int size) {
 
 void write_report(FILE *fp, int array[], int size) {
 	if (fp) { fclose(fp); }
-	double bubble_time, selection_time, insertion_time;
-	int *bubble_array, *selection_array, *insertion_array;
+	double bubble_time, selection_time, insertion_time, merge_time;
+	int *bubble_array, *selection_array, *insertion_array, *merge_array;
 	bubble_array = selection_array = insertion_array = 0;
 	bubble_array = copy_array(array, size);
 	selection_array = copy_array(array, size);
 	insertion_array = copy_array(array, size);
+	merge_array = copy_array(array, size);
 	fp = create_report(fp, size);
 	clock_t begin = clock();
 	sortinfo bubble_info = bubble_sort(bubble_array, size);
@@ -113,11 +127,17 @@ void write_report(FILE *fp, int array[], int size) {
 	sortinfo insertion_info = insertion_sort(insertion_array, size);
 	end = clock();
 	insertion_time = (double) (end - begin) / CLOCKS_PER_SEC;
+	begin = clock();
+	sortinfo merge_info = merge_sort(merge_array, size, 0, size - 1);
+	end = clock();
+	merge_time = (double) (end - begin) / CLOCKS_PER_SEC;
 	write_sort_info(fp, "Método Bubble Sort\n", bubble_info, bubble_time);
 	write_sort_info(fp, "Método Selection Sort\n", selection_info, selection_time);
 	write_sort_info(fp, "Método Insertion Sort\n", insertion_info, insertion_time);
+	write_sort_info(fp, "Método Merge Sort\n", merge_info, merge_time);
 	end_report(fp);
-	free(bubble_array = 0);
-	free(selection_array = 0);
+	free(merge_array = 0);
 	free(insertion_array = 0);
+	free(selection_array = 0);
+	free(bubble_array = 0);
 }

@@ -58,3 +58,49 @@ sortinfo insertion_sort(int array[], int size) {
     }
     return counter;
 }
+
+sortinfo merge_sort(int array[], int size, int begin, int end) {
+    int middle = 0;
+    sortinfo info;
+    if (begin < end) {
+        middle = (begin + end) / 2;
+        merge_sort(array, size, begin, middle);
+        merge_sort(array, size, middle + 1, end);
+        info = merge(array, size, begin, middle, end);
+    } else {
+        return info;
+    }
+}
+
+sortinfo merge(int array[], int size, int begin, int middle, int end) {
+    sortinfo info;
+    info.comparisons = info.swaps = 0;
+    int v1 = begin;
+    int v2 = middle + 1;
+    int aux = begin;
+    int *AA = 0;
+    AA = calloc(size - 1, sizeof array);
+    do {
+        ++info.comparisons;
+        if (array[v1] <= array[v2]) {
+            AA[aux++] = array[v1++];
+        } else {
+            AA[aux++] = array[v2++];
+        }
+    } while (v1 <= middle && v2 <= end);
+    while (v1 <= middle) {
+        ++info.swaps;
+        AA[aux++] = array[v1++];
+    }
+    while (v2 <= end) {
+        ++info.swaps;
+        AA[aux++] = array[v2++];
+    }
+    for (int i = begin; i <= end; ++i) {
+        ++info.swaps;
+        array[i] = AA[i];
+    }
+    return info;
+    free(AA);
+    AA = 0;
+}
