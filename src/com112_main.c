@@ -99,7 +99,9 @@ int *create_array(int size) {
 	int *array = calloc(size, sizeof(int));
 	if (array) {
 		for (int i = 0; i < size; ++i) {
-			array[i] = rand() % size;
+			array[i] = rand() % size; // Aleatório
+			// array[i] = i;             // Crescente
+			// array[i] = size - 1 - i;  // Decrescente
 		}
 		return array;
 	}
@@ -126,6 +128,7 @@ void write_report(FILE *fp, int array[], int size) {
 	merge_array = copy_array(array, size);
 	quick_array = copy_array(array, size);
 	fp = create_report(fp, size);
+	write_io_file(fp, "com112_entrada.txt", size, array);
 	clock_t begin = clock();
 	sortinfo bubble_info = bubble_sort(bubble_array, size);
 	clock_t end = clock();
@@ -157,6 +160,7 @@ void write_report(FILE *fp, int array[], int size) {
 	write_sort_info(fp, "Método Insertion Sort\n", insertion_info, insertion_time);
 	write_sort_info(fp, "Método Merge Sort\n", merge_info, merge_time);
 	write_sort_info(fp, "Método Quick Sort\n", quick_info, quick_time);
+	write_io_file(fp, "com112_saida.txt", size, quick_array);
 	end_report(fp);
 	free(quick_array);
 	free(merge_array);
