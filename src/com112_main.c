@@ -11,6 +11,7 @@ int relatorio();
 int *create_array(int size);
 int *copy_array(int *array, int size);
 void write_report(FILE *fp, int array[], int size);
+void print_report(const char *description, sortinfo info, double time);
 int main(int argc, char const *argv[]) {
 	srand(time(0));
 	int size = 0;
@@ -131,6 +132,10 @@ void write_report(FILE *fp, int array[], int size) {
 	sortinfo merge_info = merge_sort(merge_array, size, 0, size - 1);
 	end = clock();
 	merge_time = (double) (end - begin) / CLOCKS_PER_SEC;
+	print_report("Método Bubble Sort\n", bubble_info, bubble_time);
+	print_report("Método Selection Sort\n", selection_info, selection_time);
+	print_report("Método Insertion Sort\n", insertion_info, insertion_time);
+	print_report("Método Merge Sort\n", merge_info, merge_time);
 	write_sort_info(fp, "Método Bubble Sort\n", bubble_info, bubble_time);
 	write_sort_info(fp, "Método Selection Sort\n", selection_info, selection_time);
 	write_sort_info(fp, "Método Insertion Sort\n", insertion_info, insertion_time);
@@ -140,4 +145,11 @@ void write_report(FILE *fp, int array[], int size) {
 	free(insertion_array = 0);
 	free(selection_array = 0);
 	free(bubble_array = 0);
+}
+
+void print_report(const char *description, sortinfo info, double time) {
+	printf(description);
+	printf("\tTempo de execução: %f.\n", time);
+	printf("\tNúmero de comparações: %d.\n", info.comparisons);
+	printf("\tNúmero de movimentações: %d.\n", info.swaps);
 }
