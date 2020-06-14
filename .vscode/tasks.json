@@ -7,8 +7,8 @@
 			"command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
 			"args": [
 				"-g",
-				"${workspaceFolder}\\lista7\\src\\main.c",
-				"${workspaceFolder}\\lista7\\src\\arvorebinde.c",
+				"${workspaceFolder}\\lista7\\src\\com112_main.c",
+				"${workspaceFolder}\\lista7\\src\\com112_arvoreAVL.c",
 				"-o",
 				"${workspaceFolder}\\lista7\\debug\\${fileBasenameNoExtension}.exe"
 			],
