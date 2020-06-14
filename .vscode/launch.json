@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "gcc.exe - Build and debug active file",
+            "name": "Build and debug lista7",
             "type": "cppdbg",
             "request": "launch",
-            "program": "d:\\dev\\com112-rte\\debug\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\lista7\\debug\\${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}\\lista7",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -23,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "gcc.exe build active file"
+            "preLaunchTask": "Build lista7"
         }
     ]
 }
