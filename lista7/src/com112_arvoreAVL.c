@@ -39,7 +39,7 @@ int treeHeight(NodePtr root) {
  */
 int treeBalance(NodePtr root) {
   if (!root) { return 0; }
-  return treeHeight(root->left) - treeHeight(root->right);
+  return treeHeight(root->right) - treeHeight(root->left);
 }
 
 // TODO(void-main-void): mudar tamanho de acordo com a altura da árvore
