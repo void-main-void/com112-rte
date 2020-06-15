@@ -13,7 +13,7 @@ typedef struct Node {
 #ifdef max
   #undef max
 #endif
-int max(int x, int y);
+int max(int x, int y) { return x > y ? x : y; }
 
 void treeDestroy(NodePtr root);
 int  treeHeight(NodePtr root);
