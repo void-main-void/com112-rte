@@ -26,7 +26,7 @@ void treeDestroy(NodePtr root) {
 int treeHeight(NodePtr root) {
   if (!root) { return 0; }
   int height_left  = treeHeight(root->left);
-  int height_right = treeHeight( root->right);
+  int height_right = treeHeight(root->right);
   if (height_left > height_right) { return height_left + 1; }
   else { return height_right + 1; }
 }
@@ -93,17 +93,31 @@ void treePrint(NodePtr root) {
 }
 
 NodePtr treeRightRotate(NodePtr node_root) {
-  NodePtr temp = node_root->left;
-  node_root->left = node_root->left->right;
-  temp->right = node_root;
+  NodePtr temp = node_root->left; 
+  NodePtr temp_2 = temp->right;
+  temp->right = node_root; 
+  node_root->left = temp_2; 
   return temp;
 }
 
 NodePtr treeLeftRotate(NodePtr node_root) {
-  NodePtr temp = node_root->right;
-  node_root->right = temp->left;
-  temp->left = node_root;
+  NodePtr temp = node_root->right; 
+  NodePtr temp_2 = temp->left;  
+  temp->left = node_root;  
+  node_root->right = temp_2;  
   return temp;
+}
+
+NodePtr treeLeftRightRotate(NodePtr node_root) {
+  node_root->left = treeLeftRotate(node_root->left);
+  node_root = treeRightRotate(node_root);
+  return node_root;
+}
+
+NodePtr treeRightLeftRotate(NodePtr node_root) {
+  node_root->right = treeRightRotate(node_root->right);
+  node_root = treeLeftRotate(node_root);
+  return node_root;
 }
 
 /**
@@ -138,9 +152,21 @@ void nodeDestroy(NodePtr node) {
  * @param value New node value.
  * @return int 1 if success, 0 otherwise.
  */
-int nodeInsert(NodePtr *tree_root_ref, int value) {
-  if (!(*tree_root_ref)) { (*tree_root_ref) = nodeCreate(value); return 1; }
-  if (value <= (*tree_root_ref)->value) { nodeInsert((&(*tree_root_ref)->left), value); }
-  if (value > (*tree_root_ref)->value) { nodeInsert((&(*tree_root_ref)->right), value); }
-  if (!(*tree_root_ref)) { return 0; }
+int nodeInsert(NodePtr *node, int value) {
+  if (!(*node)) { (*node) = nodeCreate(value); return 1; }
+  if (value == (*node)->value) { return 0; }
+  if (value < (*node)->value) {
+    nodeInsert(&((*node)->left), value);
+    if (treeBalance((*node)) < -1) {
+      if (value < ((*node)->left)->value) { (*node) = treeRightRotate((*node)); }
+      else { (*node) = treeLeftRightRotate((*node)); }
+    }
+  }
+  if (value > (*node)->value) {
+    nodeInsert(&((*node)->right), value);
+    if (treeBalance((*node)) > 1) {
+      if (value > ((*node)->right)->value) { (*node) = treeLeftRotate((*node)); }
+      else { (*node) = treeRightLeftRotate((*node)); }
+    }
+  }
 }
