@@ -5,15 +5,6 @@
 #define COMPACT
 
 /**
- * @brief Compares to integers and returns the bigger.
- * 
- * @param x First number.
- * @param y Second Number.
- * @return int Value of the higher number.
- */
-int max(int x, int y) { return x > y ? x : y; }
-
-/**
  * @brief Frees a whole tree structure memory.
  * 
  * @param root Pointer to tree structure root node.
@@ -105,6 +96,13 @@ NodePtr treeRightRotate(NodePtr node_root) {
   NodePtr temp = node_root->left;
   node_root->left = node_root->left->right;
   temp->right = node_root;
+  return temp;
+}
+
+NodePtr treeLeftRotate(NodePtr node_root) {
+  NodePtr temp = node_root->right;
+  node_root->right = temp->left;
+  temp->left = node_root;
   return temp;
 }
 
