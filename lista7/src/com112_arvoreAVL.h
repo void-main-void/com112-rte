@@ -20,6 +20,7 @@ int  treeHeight(NodePtr root);
 int  treeBalance(NodePtr root);
 int  treePrintUtil(NodePtr tree, int is_left, int offset, int depth, char s[20][255]);
 void treePrint(NodePtr root);
+NodePtr treeRightRotate(NodePtr node_root);
 
 NodePtr nodeCreate(int value);
 void    nodeDestroy(NodePtr node);

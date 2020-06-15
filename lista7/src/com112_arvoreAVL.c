@@ -101,6 +101,13 @@ void treePrint(NodePtr root) {
   }
 }
 
+NodePtr treeRightRotate(NodePtr node_root) {
+  NodePtr temp = node_root->left;
+  node_root->left = node_root->left->right;
+  temp->right = node_root;
+  return temp;
+}
+
 /**
  * @brief Allocates memmory to a new node.
  * 
