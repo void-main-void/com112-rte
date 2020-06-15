@@ -22,7 +22,8 @@ void treeDestroy(NodePtr root) {
   if (!root) { return; } 
     treeDestroy(root->left); 
     treeDestroy(root->right);
-    free(root); // TODO(void-main-void): achar bug!!!
+    free(root);
+    root = 0;
 }
 
 /**
@@ -50,7 +51,7 @@ int treeBalance(NodePtr root) {
   return treeHeight(root->left) - treeHeight(root->right);
 }
 
-
+// TODO(void-main-void): mudar tamanho de acordo com a altura da árvore
 int treePrintUtil(NodePtr tree, int is_left, int offset, int depth, char s[20][255])
 {
   char b[20];
@@ -108,7 +109,7 @@ void treePrint(NodePtr root) {
  */
 NodePtr nodeCreate(int value) {
   NodePtr node_new = 0;
-  node_new = (NodePtr) malloc(sizeof node_new);
+  node_new = malloc(sizeof *node_new);
   node_new->value = value;
   node_new->left = 0;
   node_new->right = 0;
@@ -132,9 +133,9 @@ void nodeDestroy(NodePtr node) {
  * @param value New node value.
  * @return int 1 if success, 0 otherwise.
  */
-int nodeInsert(NodePtr *tree_root, int value) {
-  if (!(*tree_root)) { (*tree_root) = nodeCreate(value); return 1; }
-  if (value <= (*tree_root)->value) { nodeInsert((&(*tree_root)->left), value); }
-  if (value > (*tree_root)->value) { nodeInsert((&(*tree_root)->right), value); }
-  if (!(*tree_root)) { return 0; }
+int nodeInsert(NodePtr *tree_root_ref, int value) {
+  if (!(*tree_root_ref)) { (*tree_root_ref) = nodeCreate(value); return 1; }
+  if (value <= (*tree_root_ref)->value) { nodeInsert((&(*tree_root_ref)->left), value); }
+  if (value > (*tree_root_ref)->value) { nodeInsert((&(*tree_root_ref)->right), value); }
+  if (!(*tree_root_ref)) { return 0; }
 }
