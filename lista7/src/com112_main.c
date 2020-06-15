@@ -4,27 +4,27 @@
 int main(int argc, char *argv[]) {
   NodePtr tree = 0;
   nodeInsert(&tree, 50);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 40);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 60);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 30);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 70);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 20);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 80);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 10);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 90);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 100);
-  treePrint(tree);
+  treePrint2D(tree);
   nodeInsert(&tree, 0);
-  treePrint(tree);
+  treePrint2D(tree);
   treeDestroy(tree);
   return 0;
 }

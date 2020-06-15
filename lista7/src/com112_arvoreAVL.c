@@ -81,7 +81,7 @@ int treePrintUtil(NodePtr tree, int is_left, int offset, int depth, char s[20][2
     return left + width + right;
 }
 
-void treePrint(NodePtr root) {
+void treePrint2D(NodePtr root) {
   char s[20][255];
   for (int i = 0; i < 20; i++) {
     sprintf(s[i], "%80s", " ");
@@ -136,37 +136,31 @@ NodePtr nodeCreate(int value) {
 }
 
 /**
- * @brief Frees a node memory.
- * 
- * @param node Pointer to node to be destroyed.
- */
-void nodeDestroy(NodePtr node) {
-  if (node) { free(node); }
-  node = 0;
-}
-
-/**
  * @brief Adds a new node to an AVL tree.
  * 
  * @param tree_root AVL tree root node.
  * @param value New node value.
  * @return int 1 if success, 0 otherwise.
  */
-int nodeInsert(NodePtr *node, int value) {
-  if (!(*node)) { (*node) = nodeCreate(value); return 1; }
-  if (value == (*node)->value) { return 0; }
-  if (value < (*node)->value) {
-    nodeInsert(&((*node)->left), value);
-    if (treeBalance((*node)) < -1) {
-      if (value < ((*node)->left)->value) { (*node) = treeRightRotate((*node)); }
-      else { (*node) = treeLeftRightRotate((*node)); }
+int nodeInsert(NodePtr *tree_ref, int value) {
+  if (!(*tree_ref)) { (*tree_ref) = nodeCreate(value); return 1; }
+  if (value == (*tree_ref)->value) { return 0; }
+  if (value < (*tree_ref)->value) {
+    nodeInsert(&((*tree_ref)->left), value);
+    if (treeBalance((*tree_ref)) < -1) {
+      if (value < ((*tree_ref)->left)->value) { (*tree_ref) = treeRightRotate((*tree_ref)); }
+      else { (*tree_ref) = treeLeftRightRotate((*tree_ref)); }
     }
   }
-  if (value > (*node)->value) {
-    nodeInsert(&((*node)->right), value);
-    if (treeBalance((*node)) > 1) {
-      if (value > ((*node)->right)->value) { (*node) = treeLeftRotate((*node)); }
-      else { (*node) = treeRightLeftRotate((*node)); }
+  if (value > (*tree_ref)->value) {
+    nodeInsert(&((*tree_ref)->right), value);
+    if (treeBalance((*tree_ref)) > 1) {
+      if (value > ((*tree_ref)->right)->value) { (*tree_ref) = treeLeftRotate((*tree_ref)); }
+      else { (*tree_ref) = treeRightLeftRotate((*tree_ref)); }
     }
   }
+}
+
+int nodeRemove(NodePtr *tree_ref, int value) {
+  return 0;
 }
