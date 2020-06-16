@@ -17,10 +17,10 @@ int  treeHeight(NodePtr root);
 int  treeBalance(NodePtr root);
 int  treePrintUtil(NodePtr root, int is_left, int offset, int depth, char s[20][255]);
 void treePrint2D(NodePtr root);
-NodePtr treeRightRotate(NodePtr root);
-NodePtr treeLeftRotate(NodePtr root);
-NodePtr treeLeftRightRotate(NodePtr root);
-NodePtr treeRightLeftRotate(NodePtr root);
+void treeRightRotate(NodePtr *root);
+void treeLeftRotate(NodePtr *root);
+void treeLeftRightRotate(NodePtr *root);
+void treeRightLeftRotate(NodePtr *root);
 
 NodePtr nodeCreate(int value);
 void    nodeDestroy(NodePtr node);
