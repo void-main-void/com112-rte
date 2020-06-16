@@ -4,6 +4,10 @@
 
 #define COMPACT
 
+
+int m_max(int x, int y) { return x > y ? x : y; }
+
+
 /**
  * @brief Frees a whole tree structure memory.
  * 
@@ -43,14 +47,14 @@ int treeBalance(NodePtr root) {
 }
 
 // TODO(void-main-void): mudar tamanho de acordo com a altura da árvore
-int treePrintUtil(NodePtr tree, int is_left, int offset, int depth, char s[20][255])
+int treePrintUtil(NodePtr root, int is_left, int offset, int depth, char s[20][255])
 {
   char b[20];
   int width = 5;
-  if (!tree) return 0;
-  sprintf(b, "(%03d)", tree->value);
-  int left  = treePrintUtil(tree->left,  1, offset,                depth + 1, s);
-  int right = treePrintUtil(tree->right, 0, offset + left + width, depth + 1, s);
+  if (!root) return 0;
+  sprintf(b, "(%03d)", root->value);
+  int left  = treePrintUtil(root->left,  1, offset,                depth + 1, s);
+  int right = treePrintUtil(root->right, 0, offset + left + width, depth + 1, s);
 #ifdef COMPACT
   for (int i = 0; i < width; i++)
     s[depth][offset + left + i] = b[i];
@@ -92,32 +96,32 @@ void treePrint2D(NodePtr root) {
   }
 }
 
-NodePtr treeRightRotate(NodePtr node_root) {
-  NodePtr temp = node_root->left; 
+NodePtr treeRightRotate(NodePtr root) {
+  NodePtr temp = root->left; 
   NodePtr temp_2 = temp->right;
-  temp->right = node_root; 
-  node_root->left = temp_2; 
+  temp->right = root; 
+  root->left = temp_2; 
   return temp;
 }
 
-NodePtr treeLeftRotate(NodePtr node_root) {
-  NodePtr temp = node_root->right; 
+NodePtr treeLeftRotate(NodePtr root) {
+  NodePtr temp = root->right; 
   NodePtr temp_2 = temp->left;  
-  temp->left = node_root;  
-  node_root->right = temp_2;  
+  temp->left = root;  
+  root->right = temp_2;  
   return temp;
 }
 
-NodePtr treeLeftRightRotate(NodePtr node_root) {
-  node_root->left = treeLeftRotate(node_root->left);
-  node_root = treeRightRotate(node_root);
-  return node_root;
+NodePtr treeLeftRightRotate(NodePtr root) {
+  root->left = treeLeftRotate(root->left);
+  root = treeRightRotate(root);
+  return root;
 }
 
-NodePtr treeRightLeftRotate(NodePtr node_root) {
-  node_root->right = treeRightRotate(node_root->right);
-  node_root = treeLeftRotate(node_root);
-  return node_root;
+NodePtr treeRightLeftRotate(NodePtr root) {
+  root->right = treeRightRotate(root->right);
+  root = treeLeftRotate(root);
+  return root;
 }
 
 /**
@@ -142,25 +146,58 @@ NodePtr nodeCreate(int value) {
  * @param value New node value.
  * @return int 1 if success, 0 otherwise.
  */
-int nodeInsert(NodePtr *tree_ref, int value) {
-  if (!(*tree_ref)) { (*tree_ref) = nodeCreate(value); return 1; }
-  if (value == (*tree_ref)->value) { return 0; }
-  if (value < (*tree_ref)->value) {
-    nodeInsert(&((*tree_ref)->left), value);
-    if (treeBalance((*tree_ref)) < -1) {
-      if (value < ((*tree_ref)->left)->value) { (*tree_ref) = treeRightRotate((*tree_ref)); }
-      else { (*tree_ref) = treeLeftRightRotate((*tree_ref)); }
+int nodeInsert(NodePtr *root, int value) {
+  if (!(*root)) { (*root) = nodeCreate(value); return 1; }
+  if (value == (*root)->value) { return 0; }
+  if (value < (*root)->value) {
+    nodeInsert(&((*root)->left), value);
+    if (treeBalance((*root)) < -1) {
+      if (value < ((*root)->left)->value) { (*root) = treeRightRotate((*root)); }
+      else { (*root) = treeLeftRightRotate((*root)); }
     }
   }
-  if (value > (*tree_ref)->value) {
-    nodeInsert(&((*tree_ref)->right), value);
-    if (treeBalance((*tree_ref)) > 1) {
-      if (value > ((*tree_ref)->right)->value) { (*tree_ref) = treeLeftRotate((*tree_ref)); }
-      else { (*tree_ref) = treeRightLeftRotate((*tree_ref)); }
+  if (value > (*root)->value) {
+    nodeInsert(&((*root)->right), value);
+    if (treeBalance((*root)) > 1) {
+      if (value > ((*root)->right)->value) { (*root) = treeLeftRotate((*root)); }
+      else { (*root) = treeRightLeftRotate((*root)); }
     }
   }
 }
 
-int nodeRemove(NodePtr *tree_ref, int value) {
-  return 0;
+NodePtr nodeMinValue(NodePtr node) {
+  NodePtr current = node; 
+  while (current->left != NULL) 
+    current = current->left; 
+  return current; 
+} 
+
+int nodeRemove(NodePtr *root, int value) 
+{
+  if (!(*root)) { return 0; }
+  if (value < (*root)->value) { nodeRemove(&((*root)->left), value); }
+  else if(value > (*root)->value) { nodeRemove(&((*root)->right), value); }
+  else { 
+    if((!((*root)->left)) || (!((*root)->right))) { 
+      NodePtr temp = (*root)->left ? (*root)->left : (*root)->right; 
+      if (!temp) {
+        temp = (*root); 
+        (*root) = 0; 
+      } else {
+        (**root) = (*temp);
+      }
+      free(temp = 0); 
+    } else { 
+      NodePtr temp = nodeMinValue((*root)->right);
+      (*root)->value = temp->value; 
+      nodeRemove(&((*root)->right), temp->value); 
+    } 
+  }
+  if (!root) { return 0; }
+  int balance = treeBalance((*root)); 
+  if (balance > 1 &&  treeBalance((*root)->left)  >= 0) { (*root) = treeRightRotate((*root)); }
+  if (balance > 1 &&  treeBalance((*root)->left)   < 0) { (*root) = treeLeftRightRotate((*root)); } 
+  if (balance < -1 && treeBalance((*root)->right) <= 0) { (*root) = treeLeftRotate((*root)); }
+  if (balance < -1 && treeBalance((*root)->right)  > 0) { (*root) = treeRightLeftRotate((*root)); } 
+  return 1; 
 }

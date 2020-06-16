@@ -10,19 +10,21 @@ typedef struct Node {
   struct Node *right;
 } Node, *NodePtr;
 
+int m_max(int x, int y);
+
 void treeDestroy(NodePtr root);
 int  treeHeight(NodePtr root);
 int  treeBalance(NodePtr root);
-int  treePrintUtil(NodePtr tree, int is_left, int offset, int depth, char s[20][255]);
+int  treePrintUtil(NodePtr root, int is_left, int offset, int depth, char s[20][255]);
 void treePrint2D(NodePtr root);
-NodePtr treeRightRotate(NodePtr node_root);
-NodePtr treeLeftRotate(NodePtr node_root);
-NodePtr treeLeftRightRotate(NodePtr node_root);
-NodePtr treeRightLeftRotate(NodePtr node_root);
+NodePtr treeRightRotate(NodePtr root);
+NodePtr treeLeftRotate(NodePtr root);
+NodePtr treeLeftRightRotate(NodePtr root);
+NodePtr treeRightLeftRotate(NodePtr root);
 
 NodePtr nodeCreate(int value);
 void    nodeDestroy(NodePtr node);
-int     nodeInsert(NodePtr *tree_ref, int value);
-int     nodeRemove(NodePtr *tree_ref, int value);
+int     nodeInsert(NodePtr *root, int value);
+int     nodeRemove(NodePtr *root, int value);
 
 #endif
