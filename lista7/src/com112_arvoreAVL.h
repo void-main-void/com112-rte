@@ -1,8 +1,6 @@
 #ifndef ARVORE_AVL_H
 #define ARVORE_AVL_H
 
-#include <stdlib.h>
-
 typedef unsigned int uint;
 typedef struct Node {
   int value;
@@ -21,9 +19,13 @@ void treeRightRotate(NodePtr *root);
 void treeLeftRotate(NodePtr *root);
 void treeLeftRightRotate(NodePtr *root);
 void treeRightLeftRotate(NodePtr *root);
+void treePrintPre(NodePtr root);
+void treePrint(NodePtr root);
+void treePrintPost(NodePtr root);
+int  treeSize(NodePtr root);
+int  treeNodeSearch(NodePtr root, int value);
 
 NodePtr nodeCreate(int value);
-void    nodeDestroy(NodePtr node);
 int     nodeInsert(NodePtr *root, int value);
 int     nodeRemove(NodePtr *root, int value);
 
